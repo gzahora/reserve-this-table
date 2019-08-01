@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <title>Tables</title>
+</head>
+<body>
+        <div class="container d-block mx-auto">
+                <ul class="nav">
+                    <li class="nav-item"><a href="/api/tables">API TABLE |</a></li>
+                    <li class="nav-item"><a href="/api/waitlist"> WAITLIST</a></li>
+                    
+                </ul>
+            </div>
+        <div class="container">
+                <div class="jumbotron">
+                    <h1 class="text-center">Place of Conviviality</h1>
+                    <br>
+                    <h3 class="text-center">Current Reservations | Waiting List</h3>
+                    <br>
+                    <div class="text-center">
+                       <a href="/">
+                        <button class="btn btn-primary">Return to Base</button>
+                    </a>
+                        <a href="/reserve">
+                        <button class="btn btn-dark text-light">Reservations</button>
+                        </a>
+                    </div>
+                </div>
+            
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Reserved Tables</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul id="tableData" class="list-group">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3>Waiting</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul id="waiting" class="list-group">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<script src="server.js">
+const addToTable = () => {
+    $.ajax({ url:"/api/tables", method: "GET" }).then((tables) => {
+        console.log(tables)
+        for(let item in tables) {
+            let tables = $("#tableList");
+            let listItem = $(`<li class='list-group-item mt-4'`);
+
+            listItem.append($(`<p>`).text(`# + ${item + 1}`),
+                    $(`<p>`).text(`ID + ${tables[item].customerID}`),
+                    $(`<p>`).text(`ID + ${tables[item].customerName}`),
+                    $(`<p>`).text(`ID + ${tables[item].customerEmail}`),
+                    $(`<p>`).text(`ID + ${tables[item].phoneNumber}`),
+                );
+                tables.append(listItem)
+        }
+    })
+    
+   
+}
+addToTable()
+</script>
+</body>
+</html>
