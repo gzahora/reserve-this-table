@@ -15,7 +15,7 @@
         <div class="container d-block mx-auto">
                 <ul class="nav">
                     <li class="nav-item"><a href="/api/tables">API TABLE |</a></li>
-                    <li class="nav-item"><a href="/api/waitlist"> WAITLIST</a></li>
+                    <li class="nav-item"><a href="/api/reserve"> WAITLIST</a></li>
                     
                 </ul>
             </div>
@@ -58,14 +58,49 @@
                                         <input type="text" class="form-control" id="resID">
                                 </div>
                                
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" id="sendForm" class="btn btn-success">Submit</button>
                             
                             </form>
                         </div>
                     </div>
                 </div>
 
-<script src="server.js">
+<script>
+
+
+    
+    $("#sendForm").on("click", (event) => {
+
+        event.preventDefault()
+        let idVal = /^\w{1}$/
+        let nameVal = /^[a-zA-Z]*$/
+        let phoneVal = /^[2-9]\d{2}-\d{3}-\d{4}$/
+        let emailVal = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const newReserve = {
+            customerName: $(`#resName`).val().trim(),
+            phoneNumber: $('#resPhone').val().trim(),
+            resEmail: $('#resEmail').val().trim(),
+            customerID:$('#resID').val().trim()
+        }
+       
+        nameVal.test(newReserve.customerName) ? console.log(newReserve.customerName) : console.log('Enter A Valid Name')
+        phoneVal.test(newReserve.phoneNumber) ? console.log(newReserve.phoneNumber) : console.log('Enter a Valid Phone Number')
+        emailVal.test(newReserve.resEmail) ? console.log(newReserve.resEmail) : console.log('Enter a valid email')
+        idVal.test(newReserve.customerID) ? console.log(newReserve.customerID) : console.log('Enter a Single Character or Number')
+        $.ajax({url: "api/reserve", method:"POST"}).then((response) => {
+            response ? console.log("booked") : console.log("no soup for you")
+
+            $(`#resName`).val("")
+            $(`#resPhone`).val("")
+            $(`#resEmail`).val("")
+            $(`#resID`).val("")
+        })
+       
+    
+    })
+
+
+   
 
 </script>
 </body>

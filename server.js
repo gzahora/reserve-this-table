@@ -12,30 +12,31 @@ app.use(express.json());
 const tables = [
     {
     customerName:"Jimmy",
-    phoneNumber:"1054839",
+    phoneNumber:"289-476-4839",
     customerEmail:"jimmy@gmail.com",
     customerID:"1"
     },
     {
     customerName:"Stone",
-    phoneNumber:"2134859",
+    phoneNumber:"213-485-9999",
     customerEmail:"stone@gmail.com",
     customerID:"2"
     },
     {
     customerName:"Flynt",
-    phoneNumber:"4054759",
+    phoneNumber:"215-405-4759",
     customerEmail:"flynt@gmail.com",
     customerID:"3"
     },
     {
     customerName:"Marcia",
-    phoneNumber:"3154659",
+    phoneNumber:"315-667-4659",
     customerEmail:"marcia@gmail.com",
     customerID:"4"
     }
 
 ]
+const reserve = []
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "home.html"))
@@ -51,8 +52,16 @@ app.get('/reserve', (req, res) => {
 
 app.get("/api/tables", (req, res) => {
     
-    return res.json(tables)
+     res.json(tables)
 })
+app.get("/api/reserve", (req, res) => {
+    res.json(reserve)
+})
+app.post("/api/reserve", (req, res) => {
+    console.log(req.body)
+    reserve.push(req.body)
+    res.json(req.body)
+})  
 app.listen(PORT, ()=> {
    console.log(PORT)
 })
