@@ -9,7 +9,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 //Customer Data
-const tables = [
+let tables = [
     {
     customerName:"Jimmy",
     phoneNumber:"289-476-4839",
@@ -36,8 +36,8 @@ const tables = [
     }
 
 ]
-const reserve = []
-
+let reserve = []
+let clear = []
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "home.html"))
 })
@@ -54,13 +54,33 @@ app.get("/api/tables", (req, res) => {
     
      res.json(tables)
 })
+
 app.get("/api/reserve", (req, res) => {
     res.json(reserve)
 })
-app.post("/api/reserve", (req, res) => {
-    console.log(req.body)
-    reserve.push(req.body)
-    res.json(req.body)
+
+
+
+app.post("/api/clear", (req,res) => {
+    tables = clear;
+    reserver = clear;
+    res.json(clear)
+})
+
+app.post("/api/tables", (req, res) => {
+    const getTable = req.body
+    console.log(getTable)
+   
+        
+        if(tables.length === 5) {
+            console.log("pushed to waitlist")
+            reserve.push(getTable)
+        } else {
+            tables.push(getTable)
+        
+    }
+    
+   
 })  
 app.listen(PORT, ()=> {
    console.log(PORT)

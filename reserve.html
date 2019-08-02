@@ -15,7 +15,8 @@
         <div class="container d-block mx-auto">
                 <ul class="nav">
                     <li class="nav-item"><a href="/api/tables">API TABLE |</a></li>
-                    <li class="nav-item"><a href="/api/reserve"> WAITLIST</a></li>
+                    <li class="nav-item"><a href="/api/reserve"> WAITLIST |</a></li>
+                    <li class="nav-item"><a href="#">CLEAR</a></li>
                     
                 </ul>
             </div>
@@ -87,14 +88,18 @@
         phoneVal.test(newReserve.phoneNumber) ? console.log(newReserve.phoneNumber) : console.log('Enter a Valid Phone Number')
         emailVal.test(newReserve.resEmail) ? console.log(newReserve.resEmail) : console.log('Enter a valid email')
         idVal.test(newReserve.customerID) ? console.log(newReserve.customerID) : console.log('Enter a Single Character or Number')
-        $.ajax({url: "api/reserve", method:"POST"}).then((response) => {
-            response ? console.log("booked") : console.log("no soup for you")
 
+       $.post("api/tables", newReserve, (res, status)=>{
+
+
+
+           
+       })
             $(`#resName`).val("")
             $(`#resPhone`).val("")
             $(`#resEmail`).val("")
             $(`#resID`).val("")
-        })
+            
        
     
     })

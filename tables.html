@@ -14,7 +14,8 @@
         <div class="container d-block mx-auto">
                 <ul class="nav">
                     <li class="nav-item"><a href="/api/tables">API TABLE |</a></li>
-                    <li class="nav-item"><a href="/api/reserve"> WAITLIST</a></li>
+                    <li class="nav-item"><a href="/api/reserve"> WAITLIST |</a></li>
+                    <li class="nav-item"><a id="clear" href="#">CLEAR</a></li>
                     
                 </ul>
             </div>
@@ -47,8 +48,9 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="card mt-5">
+                
+                <div class="card">
+                
                     <div class="card-header">
                         <h3>Waiting</h3>
                     </div>
@@ -57,41 +59,54 @@
 
                         </ul>
                     </div>
-                </div>
+                
             </div>
+        </div>
+        </div>
 
         </div>
 <script>
-const getTable = () => {
-    $.ajax({url:"api/tables", method:"GET"}).then((response) => { 
-    console.log(response)
-
+const displayFunction = (a, response) => {
     for(let item in response) {
         console.log(response[item])
-
-       
-
-        $('#tables').append(
-            $(`<li class='list-group-item mt-4'>`).append(
-                $('<p>').text(`#: ${response[item].customerID}`),
+        $(a).append( $(`<li class='list-group-item mt-4'>`).append(
+                $('<p>').text(`# ${item + 1}`),
+                $('<p>').text(`ID: ${response[item].customerID}`),
                 $('<p>').text(`Name: ${response[item].customerName}`),
                 $('<p>').text(`Phone: ${response[item].phoneNumber}`),
                 $('<p>').text(`Email: ${response[item].customerEmail}`)
             )
-        )
+            )
     }
-})
 }
+const getTable = () => {
+    $.get("/api/tables", (response, status) => {
+
+  
+    console.log(response)
+
+    displayFunction("#tables", response)
+    })
+}
+
 const getReserve = () => {
     $.ajax({url:"/api/reserve", method:"GET"}).then((response) => {
         console.log(response)
-
+        displayFunction("#waiting", response)
 
         
     })
 }
+
+const clearAll = () => {
+    $.post('/api/clear', (response) => {
+        $('#tables').empty()
+        $('#waiting').empty()
+    })
+}
+$('#clear').on('click', clearAll)
 getTable()
-// getReserve()
+getReserve()
 //function call
 
 
