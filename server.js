@@ -65,7 +65,7 @@ app.get("/api/reserve", (req, res) => {
 
 app.post("/api/clear", (req,res) => {
     tables = clear;
-    reserver = clear;
+    reserve = clear;
     res.json(clear)
 })
 

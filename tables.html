@@ -21,7 +21,7 @@
             </div>
         <div class="container">
                 <div class="jumbotron">
-                    <h1 class="text-center">Place of Conviviality</h1>
+                    <h1 class="text-center">Reservation App</h1>
                     <br>
                     <h3 class="text-center">Current Reservations | Waiting List</h3>
                     <br>
@@ -74,7 +74,7 @@ const displayFunction = (a, response) => {
                 $('<p>').text(`ID: ${response[item].customerID}`),
                 $('<p>').text(`Name: ${response[item].customerName}`),
                 $('<p>').text(`Phone: ${response[item].phoneNumber}`),
-                $('<p>').text(`Email: ${response[item].customerEmail}`)
+                $('<p>').text(`Email: ${response[item].resEmail}`)
             )
             )
     }
