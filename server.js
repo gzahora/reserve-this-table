@@ -3,7 +3,7 @@ const path = require("path");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
 //Formatting data
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -37,7 +37,9 @@ let tables = [
 
 ]
 let reserve = []
+
 let clear = []
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "home.html"))
 })
